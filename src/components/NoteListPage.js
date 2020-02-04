@@ -8,6 +8,7 @@ export default function NoteListPage() {
 
     return(
       <div className="page">
+        <h1>Note List</h1>
         <div className="noteList">
         <NoteListItem
           id="123"
