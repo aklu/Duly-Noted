@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 
 
 export default function NoteListItem(props) {
+    const MAX_LENGTH = 200
+
     const {
         dateTimeText,
         id,
         onClick  = () => {},
         text,
-        MAX_LENGTH
       } = props;
 
     return(
       <div className="noteListItem">
-        <h1>Note List</h1>
         <div className="noteList">
           <div type="button" className="noteListItem" onClick={() => onClick(id)} >
           {text.length > MAX_LENGTH ?
