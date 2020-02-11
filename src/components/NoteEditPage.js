@@ -10,8 +10,8 @@ import PropTypes from "prop-types";
         <h1>Note Edit</h1>
         <textarea value={value} onChange={(event) => setValue(event.target.value)}/>
         <button type="button" onClick={() => onSave(value)}>Save</button>
-        <button type="button" onClick={() => onCancel(value)}>Cancel</button>
-        <button type="button" onClick={() => onDelete(value)}>Delete</button>
+        <button type="button" onClick={() => onCancel()}>Cancel</button>
+        <button type="button" onClick={() => onDelete()}>Delete</button>
       </div>
     );
   }

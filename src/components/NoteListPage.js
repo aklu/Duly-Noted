@@ -54,20 +54,10 @@ export default function NoteListPage() {
   };
 
   const handleOnDelete = (deleteNotes) => {
-    const removeIndex = notes.map(function(note) { return note.id; })
-      .indexOf(selectedNoteId);
-
-    ~removeIndex && notes.splice(removeIndex, 1);
+    const updatedNotes = notes.filter((note) => note.id !== selectedNoteId);
+    setNotes(updatedNotes);
     setSelectedNoteId(null);
- 
-    // setNotes(deleteNote);
-
-    // setSelectedNoteId(null);
-
-
 };
-
-  
 
   if (selectedNoteId) {
     const selectedNote = notes.find((note) => note.id === selectedNoteId);
