@@ -2,23 +2,24 @@ import React, { useState} from "react";
 import NoteListItem from "./NoteListItem";
 import NoteEditPage from "./NoteEditPage";
 
-const initialCreatedTime = (Date.now());
-
+const oneHourAgo = Date.now() - (1 * 60 * 60 * 1000);
+const sixDaysAgo = Date.now() - (6 * 24 * 60 * 60 * 1000);
+const twoWeeksAgo = Date.now() - (14 * 24 * 60 * 60 * 1000);
 const initialNotes = [
   {
     id: "1",
-    createdAt: new Date(initialCreatedTime),
+    createdAt: new Date(oneHourAgo),
     text: "This is a note 1"
   },
   {
     id: "2",
-    createdAt: new Date(initialCreatedTime),
+    createdAt: new Date(sixDaysAgo),
     text: "This is a note 2"
 
   },
   {
     id: "3",
-    createdAt: new Date(initialCreatedTime),
+    createdAt: new Date(twoWeeksAgo),
     text: "This is a note 3"
 
   }
@@ -52,15 +53,27 @@ export default function NoteListPage() {
     setSelectedNoteId(null);
   };
 
-  const handleOnDelete = (deleteNote) => {
-        notes.splice((selectedNoteId - 1), 1)
-        setSelectedNoteId(null);
-  };
+  const handleOnDelete = (deleteNotes) => {
+    const removeIndex = notes.map(function(note) { return note.id; })
+      .indexOf(selectedNoteId);
+
+    ~removeIndex && notes.splice(removeIndex, 1);
+    setSelectedNoteId(null);
+ 
+    // setNotes(deleteNote);
+
+    // setSelectedNoteId(null);
+
+
+};
+
+  
 
   if (selectedNoteId) {
     const selectedNote = notes.find((note) => note.id === selectedNoteId);
     return (
-      <NoteEditPage onSave={handleOnSave} onCancel={handleOnCancel} onDelete={handleOnDelete} text={selectedNote.text}/>
+      <NoteEditPage 
+      onSave={handleOnSave} onCancel={handleOnCancel} onDelete={handleOnDelete} text={selectedNote.text}/>
     );
   }
     return(

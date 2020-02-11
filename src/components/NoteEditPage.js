@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import ReactMarkdown from "react-markdown";
 
  export default function NoteEditPage(props) {
     const { onSave, text, onCancel, onDelete } = props;

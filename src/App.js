@@ -1,7 +1,5 @@
 import React from 'react';
-import NoteEditPage from "./components/NoteEditPage.js";
 import NoteListPage from "./components/NoteListPage.js";
-import ReactMarkdown from "react-markdown";
 import './App.css';
 
 
