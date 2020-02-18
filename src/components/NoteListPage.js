@@ -78,7 +78,7 @@ export default function NoteListPage() {
                   id= {note.id}
                   key={note.id}
                   onClick={handleListItemClick} 
-                  text= {note.text}
+                  text= {note.text.trim()}
                 />
               );
             })

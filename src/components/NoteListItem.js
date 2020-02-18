@@ -1,20 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import ReactMarkdown from "react-markdown";
-
-dayjs.extend(relativeTime);
-
-function formatDate (date) { 
-  if ((Date.now() - (168 * 60 * 60 * 1000)) <= date) {
-    date = dayjs(date).fromNow();
-  }
-  else {
-    date = dayjs(date).format("h:m a on M/D/YYYY");
-  }
-  return date;
-};
+import formatDate from "../util/formatDate";
 
 export default function NoteListItem(props) {
     const {
@@ -27,7 +14,12 @@ export default function NoteListItem(props) {
     let truncatedText;
     if (text.length > 200) {
       truncatedText = `${text.substr(0, 200)}...`;
-    } else {
+    } 
+    else if(text.length < 1)
+    {
+      truncatedText = "No note text";
+    }
+    else {
       truncatedText = text;
     }
 
