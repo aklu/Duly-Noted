@@ -12,6 +12,7 @@ export default function NoteListItem(props) {
       } = props;
 
     let truncatedText;
+    text.trim();
     if (text.length > 200) {
       truncatedText = `${text.substr(0, 200)}...`;
     } 
