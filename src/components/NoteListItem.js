@@ -11,17 +11,16 @@ export default function NoteListItem(props) {
         text,
       } = props;
 
-    let truncatedText;
-    text.trim();
-    if (text.length > 200) {
+    let truncatedText = text.trim();
+    if (truncatedText.length > 200) {
       truncatedText = `${text.substr(0, 200)}...`;
     } 
-    else if(text.length < 1)
+    else if(truncatedText.length < 1)
     {
       truncatedText = "No note text";
     }
     else {
-      truncatedText = text;
+      truncatedText = text.trim();
     }
 
     const handleItemClick = (event) => {
