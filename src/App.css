@@ -1,22 +1,16 @@
-.App {
-  text-align: center;
+ion-header {
+    text-align: center;
+    border-bottom: 1px solid black;
+    --ion-background-color: rgb(223, 221, 221);
 }
 
-.noteListItem {
-  background-color: #999999; 
-  padding: 10px;
-  cursor: pointer;
-}
+.ios {
+    --ion-text-color: black;
+  }
 
-.noteListItem:nth-of-type(odd) {
-  background-color: #888888!important;
-  
-}
-
-.noteListItem:hover {
-  background-color: #777777;
-}
-
-.page button {
-  margin: 4px;
+:root {
+    --ion-color-primary: black;
+    --ion-color-secondary: maroon;
+    --ion-color-primary-contrast: #fff;
+    --ion-text-color: rgb(49, 49, 185);
 }
