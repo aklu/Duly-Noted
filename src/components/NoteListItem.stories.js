@@ -17,7 +17,8 @@ export const ShortText = () => {
 //long text
 export const LongText = () => {
   return (
-    <NoteListItem id="1" createdAt={new Date()} text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis ante quis lorem sodales finibus. In convallis faucibus efficitur. Donec risus tellus, ultrices ut urna et, lobortis auctor arcu. Maecenas a neque eget quam vehicula ornare. In lobortis mattis nisi a aliquam nullam sodales." />
+    //I was getting an error that the lorem ipsum text was spelled incorrectly so I found different words 
+    <NoteListItem id="1" createdAt={new Date()} text = "Lorem ipsum dolor sit some there more test flowers pillows coffee vitamin dog picture sign taxi person briefcase walk post light bar store boston alternative made cage city cream madison breathe yoga car bus umbrella pizza cup candle pill metal chair rug participate adjective forever fierce running water watt plant bowl sugar bench swivel roses caffeine creamer." />
   );
 };
 

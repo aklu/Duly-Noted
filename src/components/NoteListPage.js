@@ -1,75 +1,42 @@
-import React, { useState} from "react";
+import React from "react";
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonList,
+  IonFab,
+  IonFabButton,
+  IonIcon
+} from "@ionic/react";
+import { add } from "ionicons/icons";
+import { useHistory } from "react-router-dom";
 import NoteListItem from "./NoteListItem";
-import NoteEditPage from "./NoteEditPage";
-
-const oneHourAgo = Date.now() - (1 * 60 * 60 * 1000);
-const sixDaysAgo = Date.now() - (6 * 24 * 60 * 60 * 1000);
-const twoWeeksAgo = Date.now() - (14 * 24 * 60 * 60 * 1000);
-const initialNotes = [
-  {
-    id: "1",
-    createdAt: new Date(oneHourAgo),
-    text: "This is a note 1"
-  },
-  {
-    id: "2",
-    createdAt: new Date(sixDaysAgo),
-    text: "This is a note 2"
-
-  },
-  {
-    id: "3",
-    createdAt: new Date(twoWeeksAgo),
-    text: "This is a note 3"
-
-  }
-]
+import useNotes from "../hooks/useNotes";
 
 export default function NoteListPage() {
-  const [selectedNoteId, setSelectedNoteId] = useState(null);
-  const [notes, setNotes] = useState(initialNotes);
-
+  const { notes, createNote } = useNotes();
+  const history = useHistory();
 
   const handleListItemClick = (id) => {
-    setSelectedNoteId(id);
+    history.push(`/notes/edit/${id}`);
   };
 
-  const handleOnSave = (newNoteText) => {
-    const updatedNotes = notes.map((note) => {
-      if(note.id === selectedNoteId){
-        return {
-          ...note,
-          text: newNoteText
-        };
-      }
-      return note;
-    });
-    setNotes(updatedNotes);
-
-    setSelectedNoteId(null);
+  const handleNewNoteClick = () => {
+    const { id } = createNote();
+    history.push(`/notes/edit/${id}`);
   };
 
-  const handleOnCancel = (clearId) => {
-    setSelectedNoteId(null);
-  };
-
-  const handleOnDelete = (deleteNotes) => {
-    const updatedNotes = notes.filter((note) => note.id !== selectedNoteId);
-    setNotes(updatedNotes);
-    setSelectedNoteId(null);
-};
-
-  if (selectedNoteId) {
-    const selectedNote = notes.find((note) => note.id === selectedNoteId);
-    return (
-      <NoteEditPage 
-      onSave={handleOnSave} onCancel={handleOnCancel} onDelete={handleOnDelete} text={selectedNote.text}/>
-    );
-  }
     return(
-      <div className="page">
-        <h1>Note List</h1>
-        <div className="noteList">
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Note List</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonList lines="full">
           {
             notes.map((note, index) => {
               return (
@@ -83,7 +50,13 @@ export default function NoteListPage() {
               );
             })
           }
-        </div>
-      </div>
+          </IonList>
+          <IonFab vertical="bottom" horizontal="end" slot="fixed">
+            <IonFabButton onClick={handleNewNoteClick}>
+              <IonIcon icon={add} />
+            </IonFabButton>
+          </IonFab>
+        </IonContent>
+      </IonPage>
     );
     }
