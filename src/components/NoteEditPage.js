@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { 
@@ -11,15 +12,17 @@ import {
   IonIcon,
   IonActionSheet
 } from "@ionic/react";
-import { chevronBack, ellipsisHorizontal, trash, close} from "ionicons/icons";
+import { chevronBack, ellipsisHorizontal, trash, archive, close} from "ionicons/icons";
 import styles from "./NoteEditPage.module.css";
 
  export default function NoteEditPage(props) {
     const { 
       onSave, 
       text, 
-      onDelete 
+      onDelete,
+      onArchive
     } = props;
+    const { t } = useTranslation();
     const [value, setValue] = useState(text);
     const [showActions, setShowActions] = useState(false);
 
@@ -32,7 +35,7 @@ import styles from "./NoteEditPage.module.css";
               <IonIcon slot="icon-only" icon={chevronBack} />
             </IonButton>
           </IonButtons>
-          <IonTitle>Note Edit</IonTitle>
+          <IonTitle>{t("noteEditPageTitle")}</IonTitle>
           <IonButtons slot="primary">
             <IonButton color="secondary" onClick={() => setShowActions(true)}>
               <IonIcon slot="icon-only" icon={ellipsisHorizontal}/>
@@ -47,17 +50,22 @@ import styles from "./NoteEditPage.module.css";
           onDidDismiss={() => setShowActions(false)}
           buttons={[
             {
-              text: "Delete",
+              text: t("deleteText"),
               role: "destructive",
               icon: trash,
               handler: onDelete
             },
             {
-              text: "Cancel",
+              text: t("cancelText"),
               role: "cancel",
               icon: close,
               handler: () => setShowActions(false)
-            }
+            },
+            {
+              text: t("archiveText"),
+              icon: archive,
+              handler: onArchive
+            },
           ]}
         />
       </IonContent>
@@ -68,5 +76,6 @@ import styles from "./NoteEditPage.module.css";
   NoteEditPage.propTypes = {
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    onArchive: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired
   };

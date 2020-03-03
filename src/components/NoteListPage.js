@@ -1,4 +1,5 @@
-import React from "react";
+import { useTranslation } from "react-i18next";
+import React, { useState } from "react";
 import {
   IonPage,
   IonHeader,
@@ -7,17 +8,23 @@ import {
   IonContent,
   IonList,
   IonFab,
+  IonButtons,
+  IonButton,
   IonFabButton,
   IonIcon
 } from "@ionic/react";
-import { add } from "ionicons/icons";
+import { add, funnel } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import NoteListItem from "./NoteListItem";
 import useNotes from "../hooks/useNotes";
 
 export default function NoteListPage() {
   const { notes, createNote } = useNotes();
+  const { t } = useTranslation();
   const history = useHistory();
+  const [showArchive, setShowArchive] = useState(true);
+  let archivedNotes = notes.filter((note) => note.isArchived !== true);
+  let newNotes = archivedNotes;
 
   const handleListItemClick = (id) => {
     history.push(`/notes/edit/${id}`);
@@ -28,17 +35,33 @@ export default function NoteListPage() {
     history.push(`/notes/edit/${id}`);
   };
 
+  const handleArchiveState = (showArchive) => {
+    if(showArchive === false){
+      newNotes = notes;
+      setShowArchive(true);
+    }
+    else if(showArchive === true) {
+      newNotes = archivedNotes;
+      setShowArchive(false);
+    }
+  }
+
     return(
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonTitle>Note List</IonTitle>
+          <IonTitle>{t("noteListPageTitle")}</IonTitle>           
+           <IonButtons slot="primary">
+              <IonButton color="secondary" onClick={() =>  handleArchiveState(showArchive) }>
+                <IonIcon slot="icon-only" icon={funnel}/>
+              </IonButton>
+            </IonButtons>
           </IonToolbar>
         </IonHeader>
         <IonContent>
           <IonList lines="full">
           {
-            notes.map((note, index) => {
+            newNotes.map((note, index) => {
               return (
                 <NoteListItem
                   createdAt={note.createdAt}
@@ -46,6 +69,7 @@ export default function NoteListPage() {
                   key={note.id}
                   onClick={handleListItemClick} 
                   text= {note.text}
+                  isArchived={note.isArchived}
                 />
               );
             })
@@ -60,3 +84,6 @@ export default function NoteListPage() {
       </IonPage>
     );
     }
+
+    // <IonButton color="secondary" onClick={() =>  {setShowArchive(false); handleArchiveState()} }>
+
