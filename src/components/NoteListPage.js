@@ -23,9 +23,7 @@ export default function NoteListPage() {
   const { t } = useTranslation();
   const history = useHistory();
   const [showArchive, setShowArchive] = useState(true);
-  let archivedNotes = notes.filter((note) => note.isArchived !== true);
-  let newNotes = archivedNotes;
-
+  
   const handleListItemClick = (id) => {
     history.push(`/notes/edit/${id}`);
   };
@@ -35,17 +33,16 @@ export default function NoteListPage() {
     history.push(`/notes/edit/${id}`);
   };
 
-  const handleArchiveState = (showArchive) => {
-    if(showArchive === false){
-      newNotes = notes;
-      setShowArchive(true);
-    }
-    else if(showArchive === true) {
-      newNotes = archivedNotes;
-      setShowArchive(false);
-    }
+  let newNotes;
+  if (showArchive) {
+    newNotes = notes;
+  } else {
+    newNotes = notes.filter((note) => note.isArchived !== true);
   }
 
+const handleArchiveState = () => {
+  setShowArchive(!showArchive);
+};
     return(
       <IonPage>
         <IonHeader>

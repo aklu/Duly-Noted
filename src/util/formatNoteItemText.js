@@ -1,18 +1,20 @@
-import PropTypes from "prop-types";
-
 export default function formatNoteItemText(text) {
   
+  if(text.length < 1 || text === null || text === undefined)
+    {
+      text = "No note text";
+    }
+    else{
+      return text;
+    }
+
   const newText = text.replace(/\n\s*\n/g, "\n")
   const newNewText = newText.replace(/\n/g, "-")
   let truncatedText = newNewText.trim();
 
-    if (truncatedText.length > 200) {
+    if(truncatedText.length > 200) {
       truncatedText = `${text.substr(0, 200)}...`;
     } 
-    else if(truncatedText.length < 1 || truncatedText === null || truncatedText === undefined)
-    {
-      truncatedText = "No note text";
-    }
     else {
       truncatedText = text.trim();
     }
@@ -20,9 +22,4 @@ export default function formatNoteItemText(text) {
   return(
       text=truncatedText
   )
-
-};
-
-formatNoteItemText.propTypes = {
-  text: PropTypes.string.isRequired
 };
