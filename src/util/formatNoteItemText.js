@@ -1,23 +1,26 @@
 export default function formatNoteItemText(text) {
-  
-  if(text.length < 1 || text === null || text === undefined)
+
+  if(text === "" || text === null || text === undefined)
     {
       text = "No note text";
     }
-    else{
-      return text;
-    }
+  else{
+    return text;
+  }
 
-  const newText = text.replace(/\n\s*\n/g, "\n")
-  const newNewText = newText.replace(/\n/g, "-")
-  let truncatedText = newNewText.trim();
+  let multipleBreakReplace = text.replace(/\n\s*\n/g, "\n");
+  let singleBreakReplace = multipleBreakReplace.replace(/\n/g, "-");
+  let truncatedText = singleBreakReplace.trim();
 
-    if(truncatedText.length > 200) {
-      truncatedText = `${text.substr(0, 200)}...`;
-    } 
-    else {
-      truncatedText = text.trim();
-    }
+  if(truncatedText.length > 200) {
+    truncatedText = `${text.substr(0, 200)}...`;
+  } 
+  else if(truncatedText === ""){
+    truncatedText = "No note text";
+  }
+  else {
+    truncatedText = text.trim();
+  }
 
   return(
       text=truncatedText

@@ -81,6 +81,3 @@ const handleArchiveState = () => {
       </IonPage>
     );
     }
-
-    // <IonButton color="secondary" onClick={() =>  {setShowArchive(false); handleArchiveState()} }>
-

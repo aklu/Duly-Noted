@@ -23,7 +23,6 @@ import { IonAlert } from '@ionic/react';
     const { 
       onSave, 
       text, 
-      // onDelete,
       onArchive
     } = props;
     const { t } = useTranslation();
