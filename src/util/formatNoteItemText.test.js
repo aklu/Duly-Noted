@@ -20,7 +20,7 @@ test("returns 'No note text' when text is empty", () => {
 });
 
 test("returns 'No note text' when text is only line breaks and spaces", () => { 
-  const formattedText = formatNoteItemText(" \n \n\n \n\t"); expect(formattedText).toBe(emptyNoteTextPlaceholder);
+  const formattedText = formatNoteItemText(" \n \n\n \n"); expect(formattedText).toBe(emptyNoteTextPlaceholder);
 });
 
 test("returns text with whitespace trimmed from start and end", () => { 
