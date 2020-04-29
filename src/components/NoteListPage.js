@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
 import {
   IonPage,
@@ -15,22 +14,78 @@ import {
 } from "@ionic/react";
 import { add, funnel } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import NoteListItem from "./NoteListItem";
-import useNotes from "../hooks/useNotes";
+// import useNotes from "../hooks/useNotes";
+
+//all queries need gql
+const GET_NOTES = gql`
+  {
+    notes(includeArchived: true) {
+      id
+      createdAt
+      isArchived
+      text
+    }
+  }
+`;
+
+const CREATE_NOTE = gql`
+  mutation createNote($note: CreateNoteInput!) {
+    createNote(note: $note) {
+      id
+      createdAt
+      isArchived
+      text
+    }
+  }
+`;
 
 export default function NoteListPage() {
-  const { notes, createNote } = useNotes();
+  const [createNote] = useMutation(CREATE_NOTE, {
+    onCompleted(data) {
+      if (data && data.createNote) {
+        const id = data.createNote.id;
+        history.push(`/notes/edit/${id}`);
+      }
+    },
+    refetchQueries: [
+      {
+        query: GET_NOTES
+      }
+    ]
+  });
+  const { data, error, loading } = useQuery(GET_NOTES, {
+    pollInterval: 5000
+  });
+  // const { createNote } = useNotes();
   const { t } = useTranslation();
   const history = useHistory();
   const [showArchive, setShowArchive] = useState(true);
+
+  if (loading) {
+    return "Loading..."; //TODO: eventually show a loading spinner
+  }
+
+  if(error) {
+    return `${error}`; //Display errors on page for now
+  }
+
+  const notes = (data && data.notes) || [];
   
   const handleListItemClick = (id) => {
     history.push(`/notes/edit/${id}`);
   };
 
   const handleNewNoteClick = () => {
-    const { id } = createNote();
-    history.push(`/notes/edit/${id}`);
+    createNote({
+      variables: {
+        note: {
+          text: ""
+        }
+      }
+    });
   };
 
   let newNotes;
@@ -61,7 +116,7 @@ const handleArchiveState = () => {
             newNotes.map((note, index) => {
               return (
                 <NoteListItem
-                  createdAt={note.createdAt}
+                  createdAt={new Date(note.createdAt)}
                   id= {note.id}
                   key={note.id}
                   onClick={handleListItemClick} 
