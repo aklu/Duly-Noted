@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import useNotes from "../hooks/useNotes";
 import PropTypes from "prop-types";
 import { useParams } from "react-router";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { 
   IonPage,
   IonHeader,
@@ -31,7 +31,7 @@ import { IonAlert } from '@ionic/react';
     const [showActions, setShowActions] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const { deleteNote } = useNotes();
-    const history = useHistory();
+    // const history = useHistory();
 
   return (
     <IonPage>
@@ -66,7 +66,6 @@ import { IonAlert } from '@ionic/react';
                 text: t("alertConfirm"),
                 handler: () => {
                   deleteNote(id);
-                  history.goBack();                
                 }
               }
             ]}
@@ -106,6 +105,3 @@ import { IonAlert } from '@ionic/react';
     onArchive: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired
   };
-
-  //need to call the function to run the ionalert 
-  // {setShowAlert(true)
