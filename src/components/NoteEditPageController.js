@@ -95,7 +95,11 @@ export default function NoteEditPageController() {
     const handleOnSave = (newNoteText) => {
       newNoteText = newNoteText.trim();
       if(newNoteText === ""){
-        deleteNote(id);
+        deleteNote({
+          variables: {
+            id: id
+          }
+        });
       }
       else{
         updateNote({
