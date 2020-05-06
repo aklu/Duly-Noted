@@ -95,8 +95,7 @@ export default function NoteEditPageController() {
     const handleOnSave = (newNoteText) => {
       newNoteText = newNoteText.trim();
       if(newNoteText === ""){
-        // deleteNote(id);
-        history.goBack();
+        deleteNote(id);
       }
       else{
         updateNote({
