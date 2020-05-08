@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
-import useNotes from "../hooks/useNotes";
+import notes from "./NoteEditPageController"
 import PropTypes from "prop-types";
 import { useParams } from "react-router";
 // import { useHistory } from "react-router-dom";
@@ -30,8 +30,7 @@ import { IonAlert } from '@ionic/react';
     const [value, setValue] = useState(text);
     const [showActions, setShowActions] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    const { deleteNote } = useNotes();
-    // const history = useHistory();
+    const { deleteNote } = notes;
 
   return (
     <IonPage>

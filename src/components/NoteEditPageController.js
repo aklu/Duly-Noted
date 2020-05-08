@@ -78,7 +78,6 @@ export default function NoteEditPageController() {
         id
       }
     });
-    // const { deleteNote, updateNote, archiveNote } = useNotes();
    
 
     if (loading) {

@@ -17,7 +17,6 @@ import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import NoteListItem from "./NoteListItem";
-// import useNotes from "../hooks/useNotes";
 
 //all queries need gql
 const GET_NOTES = gql`
@@ -59,7 +58,6 @@ export default function NoteListPage() {
   const { data, error, loading } = useQuery(GET_NOTES, {
     pollInterval: 5000
   });
-  // const { createNote } = useNotes();
   const { t } = useTranslation();
   const history = useHistory();
   const [showArchive, setShowArchive] = useState(true);
