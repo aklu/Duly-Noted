@@ -3,7 +3,6 @@ import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import NoteEditPage from "./NoteEditPage";
-// import useNotes from "../hooks/useNotes";
 
 const GET_ONE_NOTE = gql`
   query note($id: ID!){
