@@ -38,7 +38,7 @@ const GET_NOTES = gql`
     notes(includeArchived: true) {
       id
       createdAt
-      isArchived
+      isArchived 
       text
     }
   }
