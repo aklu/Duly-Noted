@@ -20,8 +20,8 @@ import NoteListItem from "./NoteListItem";
 
 //all queries need gql
 const GET_NOTES = gql`
-  {
-    notes(includeArchived: true) {
+  query notes($includeArchived: Boolean) {
+    notes(includeArchived: $includeArchived) {
       id
       createdAt
       isArchived 
@@ -59,13 +59,10 @@ export default function NoteListPage() {
   const [showArchive, setShowArchive] = useState(true);
 
   const { data, error, loading } = useQuery(GET_NOTES, {
-    pollInterval: 5000,
-    refetchQueries: [
-    {
-      query: GET_NOTES,
-      variables: {includeArchived: showArchive}
-    }
-  ]
+      variables: {
+        includeArchived: showArchive
+      },
+      pollInterval: 5000
   });
   const { t } = useTranslation();
   const history = useHistory();
