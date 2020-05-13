@@ -85,7 +85,8 @@ export default function NoteListPage() {
     createNote({
       variables: {
         note: {
-          text: ""
+          text: "",
+          isArchived: false
         }
       }
     });
