@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import NoteEditPage from "./NoteEditPage";
+import { GET_NOTES } from "./NoteListPage";
 
 const GET_ONE_NOTE = gql`
   query note($id: ID!){
@@ -29,17 +30,6 @@ const UPDATE_NOTE = gql`
       id
       text
       isArchived
-    }
-  }
-`;
-
-const GET_NOTES = gql`
-  {
-    notes(includeArchived: true) {
-      id
-      createdAt
-      isArchived 
-      text
     }
   }
 `;

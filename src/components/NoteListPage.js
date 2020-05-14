@@ -19,7 +19,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import NoteListItem from "./NoteListItem";
 
 //all queries need gql
-const GET_NOTES = gql`
+export const GET_NOTES = gql`
   query notes($includeArchived: Boolean) {
     notes(includeArchived: $includeArchived) {
       id

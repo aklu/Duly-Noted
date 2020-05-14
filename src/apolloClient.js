@@ -8,7 +8,7 @@ export default async function getApolloClient() {
     storage: window.localStorage,
  });
   const client = new ApolloClient({
-    cache: new InMemoryCache(),
+    cache,
     link: new HttpLink({
       uri: "http://192.168.1.140:3030/",
     })
