@@ -30,7 +30,8 @@ const UPDATE_NOTE = gql`
       id
       text
       isArchived
-    }
+    },
+    
   }
 `;
 
@@ -43,7 +44,12 @@ export default function NoteEditPageController() {
     },
     refetchQueries: [
       {
-        query: GET_NOTES
+        query: GET_NOTES,
+        variables: { includeArchived: true }
+      },
+      {
+        query: GET_NOTES,
+        variables: { includeArchived: false }
       }
     ]
   });
@@ -56,7 +62,12 @@ export default function NoteEditPageController() {
     },
     refetchQueries: [
       {
-        query: GET_NOTES
+        query: GET_NOTES,
+        variables: { includeArchived: true }
+      },
+      {
+        query: GET_NOTES,
+        variables: { includeArchived: false }
       }
     ]
   });
