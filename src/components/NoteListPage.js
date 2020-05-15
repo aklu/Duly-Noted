@@ -12,20 +12,19 @@ import {
   IonFabButton,
   IonIcon
 } from "@ionic/react";
-import { add, funnel } from "ionicons/icons";
+import { add, funnel, funnelOutline } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import NoteListItem from "./NoteListItem";
-// import useNotes from "../hooks/useNotes";
 
 //all queries need gql
-const GET_NOTES = gql`
-  {
-    notes(includeArchived: true) {
+export const GET_NOTES = gql`
+  query notes($includeArchived: Boolean) {
+    notes(includeArchived: $includeArchived) {
       id
       createdAt
-      isArchived
+      isArchived 
       text
     }
   }
@@ -56,13 +55,17 @@ export default function NoteListPage() {
       }
     ]
   });
+
+  const [showArchive, setShowArchive] = useState(true);
+
   const { data, error, loading } = useQuery(GET_NOTES, {
-    pollInterval: 5000
+      variables: {
+        includeArchived: showArchive
+      },
+      pollInterval: 5000
   });
-  // const { createNote } = useNotes();
   const { t } = useTranslation();
   const history = useHistory();
-  const [showArchive, setShowArchive] = useState(true);
 
   if (loading) {
     return "Loading..."; //TODO: eventually show a loading spinner
@@ -82,17 +85,19 @@ export default function NoteListPage() {
     createNote({
       variables: {
         note: {
-          text: ""
+          text: "",
+          isArchived: false
         }
       }
     });
   };
 
-  let newNotes;
-  if (showArchive) {
-    newNotes = notes;
-  } else {
-    newNotes = notes.filter((note) => note.isArchived !== true);
+  let funnelStatus;
+  if(showArchive){
+    funnelStatus = funnelOutline;
+  }
+  else {
+    funnelStatus = funnel;
   }
 
 const handleArchiveState = () => {
@@ -105,7 +110,7 @@ const handleArchiveState = () => {
           <IonTitle>{t("noteListPageTitle")}</IonTitle>           
            <IonButtons slot="primary">
               <IonButton color="secondary" onClick={() =>  handleArchiveState(showArchive) }>
-                <IonIcon slot="icon-only" icon={funnel}/>
+                <IonIcon slot="icon-only" icon={funnelStatus}/>
               </IonButton>
             </IonButtons>
           </IonToolbar>
@@ -113,7 +118,7 @@ const handleArchiveState = () => {
         <IonContent>
           <IonList lines="full">
           {
-            newNotes.map((note, index) => {
+            notes.map((note, index) => {
               return (
                 <NoteListItem
                   createdAt={new Date(note.createdAt)}

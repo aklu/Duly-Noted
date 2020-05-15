@@ -1,9 +1,8 @@
 import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
-import useNotes from "../hooks/useNotes";
 import PropTypes from "prop-types";
-import { useParams } from "react-router";
-// import { useHistory } from "react-router-dom";
+// import { useParams } from "react-router";
+
 import { 
   IonPage,
   IonHeader,
@@ -23,15 +22,14 @@ import { IonAlert } from '@ionic/react';
     const { 
       onSave, 
       text, 
-      onArchive
+      onArchive,
+      onDelete
     } = props;
     const { t } = useTranslation();
-    const { id } = useParams();
+    // const { id } = useParams();
     const [value, setValue] = useState(text);
     const [showActions, setShowActions] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    const { deleteNote } = useNotes();
-    // const history = useHistory();
 
   return (
     <IonPage>
@@ -64,9 +62,7 @@ import { IonAlert } from '@ionic/react';
               },
               {
                 text: t("alertConfirm"),
-                handler: () => {
-                  deleteNote(id);
-                }
+                handler: onDelete
               }
             ]}
           />

@@ -5,15 +5,12 @@ import { Redirect, Route } from "react-router";
 import { ApolloProvider } from "@apollo/client";
 import NoteEditPageController from "./components/NoteEditPageController.js";
 import NoteListPage from "./components/NoteListPage.js";
-import { NotesProvider } from "./hooks/useNotes";
-import apolloClient from "./apolloClient";
 import "./ionicStyles";
 import "./app.css"
 
 function App(props) { 
   return (
-    <ApolloProvider client={apolloClient}>
-    <NotesProvider>
+    <ApolloProvider client={props.apolloClient}>
       <IonApp>
         <IonReactRouter>
           <IonRouterOutlet>
@@ -23,7 +20,6 @@ function App(props) {
           </IonRouterOutlet>
         </IonReactRouter>
       </IonApp>
-    </NotesProvider>
     </ApolloProvider>
   );
 }
